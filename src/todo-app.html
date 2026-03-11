@@ -1,0 +1,205 @@
+
+<div class="app">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-top">
+      <h1 class="app-title">My Tasks</h1>
+      <div class="date-badge" id="dateBadge">Пн, 9 марта</div>
+    </div>
+    <div class="stats-line">
+      <div><span>5</span> задач сегодня</div>
+      <div><span>2</span> выполнено</div>
+      <div><span>1</span> просрочено</div>
+    </div>
+  </div>
+
+  <!-- Add input -->
+  <div class="add-wrap">
+    <input class="add-input" type="text" placeholder="Добавить задачу...">
+    <button class="add-btn">+</button>
+  </div>
+
+  <!-- Filters -->
+  <div class="filters">
+    <button class="filter-btn active">Все</button>
+    <button class="filter-btn">Активные</button>
+    <button class="filter-btn">Выполненные</button>
+    <button class="filter-btn">Просроченные</button>
+  </div>
+
+  <!-- Categories -->
+  <div class="categories">
+    <button class="cat-chip cat-work"><span class="dot"></span>Работа</button>
+    <button class="cat-chip cat-personal"><span class="dot"></span>Личное</button>
+    <button class="cat-chip cat-health"><span class="dot"></span>Здоровье</button>
+    <button class="cat-chip cat-study"><span class="dot"></span>Учёба</button>
+  </div>
+
+  <!-- Progress -->
+  <div class="progress-card">
+    <div class="progress-header">
+      <span class="progress-title">Прогресс за сегодня</span>
+      <span class="progress-pct">40%</span>
+    </div>
+    <div class="progress-bar-bg">
+      <div class="progress-bar-fill"></div>
+    </div>
+    <div class="progress-labels">
+      <div>Выполнено: <span>2</span></div>
+      <div>Осталось: <span>3</span></div>
+    </div>
+  </div>
+
+  <!-- Active tasks -->
+  <div class="section-label">Активные</div>
+  <div class="todo-list">
+
+    <div class="todo-item priority-high">
+      <div class="todo-check" onclick="toggleDone(this)">
+        <span class="todo-check-icon">✓</span>
+      </div>
+      <div class="todo-content">
+        <div class="todo-text">Сдать проект по Vue</div>
+        <div class="todo-meta">
+          <span class="todo-cat"><span class="dot" style="background:#5056cc"></span> Учёба</span>
+          <span class="todo-due overdue">Вчера</span>
+        </div>
+      </div>
+      <div class="todo-actions">
+        <button class="action-btn">✏️</button>
+        <button class="action-btn delete">🗑</button>
+      </div>
+    </div>
+
+    <div class="todo-item priority-mid">
+      <div class="todo-check" onclick="toggleDone(this)">
+        <span class="todo-check-icon">✓</span>
+      </div>
+      <div class="todo-content">
+        <div class="todo-text">Задеплоить weather app на Vercel</div>
+        <div class="todo-meta">
+          <span class="todo-cat"><span class="dot" style="background:#5056cc"></span> Учёба</span>
+          <span class="todo-due">Сегодня</span>
+        </div>
+      </div>
+      <div class="todo-actions">
+        <button class="action-btn">✏️</button>
+        <button class="action-btn delete">🗑</button>
+      </div>
+    </div>
+
+    <div class="todo-item priority-low">
+      <div class="todo-check" onclick="toggleDone(this)">
+        <span class="todo-check-icon">✓</span>
+      </div>
+      <div class="todo-content">
+        <div class="todo-text">Покрасить стены в комнате</div>
+        <div class="todo-meta">
+          <span class="todo-cat"><span class="dot" style="background:#cc4d7a"></span> Личное</span>
+          <span class="todo-due">Завтра</span>
+        </div>
+      </div>
+      <div class="todo-actions">
+        <button class="action-btn">✏️</button>
+        <button class="action-btn delete">🗑</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Completed tasks -->
+  <div class="section-label">Выполнено</div>
+  <div class="completed-list">
+
+    <div class="todo-item done priority-mid">
+      <div class="todo-check">
+        <span class="todo-check-icon">✓</span>
+      </div>
+      <div class="todo-content">
+        <div class="todo-text">Сделать дизайн портфолио</div>
+        <div class="todo-meta">
+          <span class="todo-cat"><span class="dot" style="background:#5056cc"></span> Учёба</span>
+        </div>
+      </div>
+      <div class="todo-actions">
+        <button class="action-btn delete">🗑</button>
+      </div>
+    </div>
+
+    <div class="todo-item done priority-low">
+      <div class="todo-check">
+        <span class="todo-check-icon">✓</span>
+      </div>
+      <div class="todo-content">
+        <div class="todo-text">Запушить код на GitHub</div>
+        <div class="todo-meta">
+          <span class="todo-cat"><span class="dot" style="background:#3a9e6e"></span> Работа</span>
+        </div>
+      </div>
+      <div class="todo-actions">
+        <button class="action-btn delete">🗑</button>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  // Date badge
+  const days = ['Вс','Пн','Вт','Ср','Чт','Пт','Сб']
+  const months = ['января','февраля','марта','апреля','мая','июня','июля','августа','сентября','октября','ноября','декабря']
+  const now = new Date()
+  document.getElementById('dateBadge').textContent =
+    `${days[now.getDay()]}, ${now.getDate()} ${months[now.getMonth()]}`
+
+  // Toggle done
+  function toggleDone(checkEl) {
+    const item = checkEl.closest('.todo-item')
+    item.classList.toggle('done')
+  }
+
+  // Filter buttons
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'))
+      btn.classList.add('active')
+    })
+  })
+
+  // Add task on Enter
+  const input = document.querySelector('.add-input')
+  const addBtn = document.querySelector('.add-btn')
+
+  function addTask() {
+    const text = input.value.trim()
+    if (!text) return
+    const list = document.querySelector('.todo-list')
+    const item = document.createElement('div')
+    item.className = 'todo-item priority-low'
+    item.style.animation = 'slideIn 0.3s ease'
+    item.innerHTML = `
+      <div class="todo-check" onclick="toggleDone(this)">
+        <span class="todo-check-icon">✓</span>
+      </div>
+      <div class="todo-content">
+        <div class="todo-text">${text}</div>
+        <div class="todo-meta">
+          <span class="todo-due">Сегодня</span>
+        </div>
+      </div>
+      <div class="todo-actions">
+        <button class="action-btn">✏️</button>
+        <button class="action-btn delete" onclick="this.closest('.todo-item').remove()">🗑</button>
+      </div>
+    `
+    list.prepend(item)
+    input.value = ''
+  }
+
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') addTask() })
+  addBtn.addEventListener('click', addTask)
+</script>
+</body>
+</html>
