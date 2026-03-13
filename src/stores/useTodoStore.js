@@ -57,6 +57,11 @@ export const useTodoStore = defineStore('todos', () => {
         todos.value = todos.value.filter(t => t.id !== id)      // удаляем задачу
     }
 
+    function editTodo(id, newText) {
+        const todo = todos.value.find(t => t.id === id)
+        if (todo) todo.text = newText
+    }
+
     // СЧЕТЧИК ЗАДАЧ УНИКАЛЬНЫМ МЕТОДОМ computed //
 
     const totalTodos = computed(() => todos.value.length) // общее кол-во задач
@@ -102,6 +107,7 @@ export const useTodoStore = defineStore('todos', () => {
         toggleCategoryForNewTodo, 
         toggleDone, 
         deleteTodo, 
+        editTodo,
         totalTodos, 
         completedTodos,
         activeTodos,
